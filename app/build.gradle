@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.example.battletanks'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.battletanks"
@@ -29,6 +29,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
