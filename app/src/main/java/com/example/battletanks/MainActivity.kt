@@ -8,10 +8,7 @@ import android.view.KeyEvent.KEYCODE_DPAD_LEFT
 import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
 import android.widget.FrameLayout
-import com.example.battletanks.Direction.UP
-import com.example.battletanks.Direction.DOWN
-import com.example.battletanks.Direction.LEFT
-import com.example.battletanks.Direction.RIGHT
+import com.example.battletanks.Direction.*
 import com.example.battletanks.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -33,22 +30,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun move(direction: Direction) {
+        val step = 50
         when(direction) {
             UP -> {
                 binding.myTank.rotation = 0f
-                (binding.myTank.layoutParams as FrameLayout.LayoutParams).topMargin -= 50
+                if (((binding.myTank.layoutParams as FrameLayout.LayoutParams).topMargin) > 0)
+                        (binding.myTank.layoutParams as FrameLayout.LayoutParams).topMargin -= step
             }
             DOWN -> {
                 binding.myTank.rotation = 180f
-                (binding.myTank.layoutParams as FrameLayout.LayoutParams).topMargin += 50
+                if (((binding.myTank.layoutParams as FrameLayout.LayoutParams).topMargin) < binding.container.height - binding.myTank.height - step)
+                    (binding.myTank.layoutParams as FrameLayout.LayoutParams).topMargin += step
             }
             LEFT -> {
                 binding.myTank.rotation = 270f
-                (binding.myTank.layoutParams as FrameLayout.LayoutParams).leftMargin -= 50
+                if (((binding.myTank.layoutParams as FrameLayout.LayoutParams).leftMargin) > 0)
+                    (binding.myTank.layoutParams as FrameLayout.LayoutParams).leftMargin -= step
             }
             RIGHT -> {
                 binding.myTank.rotation = 90f
-                (binding.myTank.layoutParams as FrameLayout.LayoutParams).leftMargin += 50
+                if (((binding.myTank.layoutParams as FrameLayout.LayoutParams).leftMargin) < binding.container.width - binding.myTank.width - step)
+                    (binding.myTank.layoutParams as FrameLayout.LayoutParams).leftMargin += step
             }
         }
         binding.container.removeView(binding.myTank)
